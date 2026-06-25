@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>For My Pretty Little Baby</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dusk:#241531;
+    --dusk-2:#3a2147;
+    --coral:#ff8a66;
+    --sun:#ffb37a;
+    --paper:#fff3df;
+    --paper-line:#e7cfa6;
+    --window:#8fd0ea;
+    --pink:#ef5d7c;
+    --ink:#3a2417;
+    --ink-soft:#6b4e3d;
+    --pixel-yellow:#f4c94a;
+    --pixel-green:#5fae6e;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{
+    scroll-behavior:smooth;
+    overflow-x:hidden;
+  }
+
+  body{
+    font-family:'Inter', sans-serif;
+    background:
+      radial-gradient(ellipse 120% 60% at 50% 0%, #ffb37a 0%, #ff8a66 22%, #e4628f 46%, #7a3f8a 70%, #241531 100%);
+    background-attachment:fixed;
+    color:var(--ink);
+    overflow-x:hidden;
+    min-height:100vh;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ---------- DOODLE OVERLAY EFFECTS (Mobile Responsive) ---------- */
+  #welcomeOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fffdf9; 
+    background-image: 
+      radial-gradient(#e7cfa6 1px, transparent 1px), 
+      linear-gradient(rgba(231, 207, 166, 0.3) 1px, transparent 1px);
+    background-size: 20px 20px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 16px;
+    box-shadow: inset 0 0 100px rgba(58, 36, 23, 0.15);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .doodle-container {
+    width: 100%;
+    max-width: 360px;
+    padding: 30px 20px;
+    background: #fffdf9;
+    border: 3px solid var(--ink);
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    box-shadow: 6px 10px 0 rgba(58, 36, 23, 0.1);
+    position: relative;
+  }
+
+  .doodle-title {
+    font-family: 'Caveat', cursive;
+    color: var(--pink);
+    font-size: clamp(2.2rem, 8vw, 3.2rem);
+    font-weight: 700;
+    margin-bottom: 5px;
+    transform: rotate(-3deg);
+    display: inline-block;
+    word-break: break-word;
+  }
+
+  .doodle-sub {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1.2rem, 5vw, 1.5rem);
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+  }
+
+  .doodle-heart {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 12px;
+    animation: doodlePulse 2s infinite ease-in-out;
+  }
+
+  @keyframes doodlePulse {
+    0%, 100% { transform: scale(1) rotate(-5deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+  }
+
+  .doodle-btn {
+    font-family: 'Caveat', cursive;
+    font-size: 1.6rem;
+    font-weight: 700;
+    padding: 10px 36px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--ink);
+    border: 3px solid var(--ink);
+    border-radius: 20px 5px 10px 12px/4px 14px 5px 11px;
+    position: relative;
+    transition: all 0.2s ease;
+    min-height: 48px; /* Mobile safe zone tap */
+  }
+  .doodle-btn:hover {
+    background: rgba(239, 93, 124, 0.15);
+    transform: scale(1.03) rotate(1deg);
+  }
+
+  /* ---------- Floating Decor Assets (Hidden on small screens to reduce clutter) ---------- */
+  .decor{position:absolute; pointer-events:none; z-index:1; opacity:0.8;}
+  .kite{width:44px; animation:sway 6s ease-in-out infinite;}
+  @keyframes sway{0%,100%{transform:rotate(-4deg) translateY(0);}50%{transform:rotate(4deg) translateY(-10px);}}
+  .balloons{width:70px; animation:bob 5s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+
+  @media (max-width: 600px) {
+    .decor { display: none !important; }
+  }
+
+  /* ---------- MOBILE FRIENDLY NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:100;
+    display:flex; align-items:center; justify-content:center; gap:4px;
+    padding:10px 8px;
+    background:rgba(36,21,49,0.8);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    border-bottom:2px solid rgba(255,179,122,0.3);
+    flex-wrap:wrap;
+  }
+  .nav-link{
+    font-family:'Press Start 2P', monospace;
+    font-size:8px;
+    color:var(--paper);
+    text-decoration:none;
+    padding:8px 10px;
+    border:2px solid transparent;
+    border-radius:4px;
+    letter-spacing:0px;
+    transition:all .15s ease;
+    white-space:nowrap;
+  }
+  @media(max-width:400px){
+    .nav-link { font-size:7px; padding:6px 6px; }
+  }
+  .nav-link:hover, .nav-link.active{
+    color:var(--dusk);
+    background:var(--pixel-yellow);
+    border-color:#9a7322;
+    box-shadow:2px 2px 0 rgba(0,0,0,0.3);
+  }
+
+  /* ---------- HERO SECTION ---------- */
+  .hero{
+    position:relative;
+    padding:40px 14px 30px;
+    text-align:center;
+    z-index:2;
+  }
+  .eyebrow{
+    font-family:'Press Start 2P', monospace;
+    font-size:9px;
+    letter-spacing:1.5px;
+    color:var(--pixel-yellow);
+    text-shadow:2px 2px 0 rgba(0,0,0,0.3);
+  }
+  .hero h1{
+    font-family:'Caveat', cursive;
+    font-size:clamp(2.4rem, 8vw, 4.5rem);
+    color:var(--paper);
+    margin:8px 0;
+    text-shadow:2px 2px 0 rgba(0,0,0,0.25);
+    line-height:1.1;
+  }
+  .hero p.sub{
+    font-family:'Inter', sans-serif;
+    font-size:0.9rem;
+    color:#f6e3cf;
+    max-width:480px;
+    margin:0 auto 20px;
+    line-height:1.5;
+  }
+
+  /* Train block container responsiveness */
+  .train-strip{
+    position:relative;
+    width:100%;
+    max-width:1000px;
+    margin:0 auto;
+    border:3px solid #1a0f24;
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 8px 0 rgba(0,0,0,0.3), 0 12px 20px rgba(0,0,0,0.4);
+    image-rendering:pixelated;
+  }
+  .train-strip canvas{
+    display:block; 
+    width:100%; 
+    height:auto; 
+    image-rendering:pixelated;
+  }
+
+  .cta-row{display:flex; gap:10px; justify-content:center; margin-top:24px; flex-wrap:wrap;}
+  .btn{
+    font-family:'Press Start 2P', monospace;
+    font-size:9px;
+    padding:12px 16px;
+    border-radius:4px;
+    border:3px solid #1a0f24;
+    cursor:pointer;
+    box-shadow:3px 3px 0 #1a0f24;
+    transition:transform .1s ease, box-shadow .1s ease;
+    min-height:42px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .btn:active{transform:translate(2px,2px); box-shadow:0px 0px 0 #1a0f24;}
+  .btn-primary{background:var(--pixel-yellow); color:#3a2417;}
+  .btn-ghost{background:var(--paper); color:#3a2417;}
+
+  /* ---------- GENERAL CONTAINER SECTIONS ---------- */
+  section{position:relative; z-index:2; padding:50px 14px;}
+  .section-inner{max-width:900px; margin:0 auto;}
+  .section-head{text-align:center; margin-bottom:28px;}
+  .section-head h2{
+    font-family:'Caveat', cursive;
+    font-size:clamp(2rem, 6vw, 3rem);
+    color:var(--paper);
+    margin-top:4px;
+    text-shadow:2px 2px 0 rgba(0,0,0,0.25);
+  }
+
+  /* Pixel Train track dividers */
+  .track-divider{
+    width:100%; height:30px; position:relative; overflow:hidden; opacity:0.8;
+  }
+  .track-divider svg{width:200%; height:100%; animation:trainmove 18s linear infinite;}
+  @keyframes trainmove{from{transform:translateX(0);} to{transform:translateX(-50%);}}
+
+  /* ---------- MOBILE ADJUSTED LETTER ---------- */
+  .letter-wrap{display:flex; justify-content:center;}
+  .letter{
+    position:relative;
+    width:100%; max-width:620px;
+    background:repeating-linear-gradient(var(--paper) 0px, var(--paper) 35px, var(--paper-line) 36px);
+    border-radius:12px;
+    padding:35px 24px 28px;
+    box-shadow:0 12px 0 rgba(0,0,0,0.18), 0 16px 25px rgba(0,0,0,0.35);
+    transform:rotate(-0.5deg);
+    word-wrap: break-word;
+  }
+  .letter .date{
+    text-align:right; font-family:'Press Start 2P', monospace; font-size:8px;
+    color:var(--pink); letter-spacing:0.5px; margin-bottom:14px;
+  }
+  .letter .salutation{
+    font-family:'Caveat', cursive; font-weight:700; font-size:1.7rem;
+    color:var(--ink); margin-bottom:12px; line-height:1.2;
+  }
+  .letter p{
+    font-family:'Caveat', cursive; font-size:1.25rem; line-height:1.45;
+    color:var(--ink-soft); margin-bottom:14px;
+  }
+  .letter .sign-block{text-align:right; margin-top:20px;}
+  .letter .sign-block .with-love{font-family:'Inter'; font-size:0.8rem; color:var(--ink-soft);}
+  .letter .sign-block .signature{
+    font-family:'Caveat', cursive; font-weight:700; font-size:1.6rem; color:var(--pink);
+  }
+  .letter-pin{
+    position:absolute; top:-10px; left:50%; transform:translateX(-50%);
+    width:20px; height:20px; image-rendering:pixelated;
+  }
+
+  /* ---------- COLLAGE PILE GRAPHICS ---------- */
+  .stack-wrap{
+    display:flex; flex-direction:column; align-items:center; gap:16px;
+  }
+  .collage-grid{
+    position:relative;
+    width:260px; height:320px;
+  }
+  .polaroid{
+    position:absolute; top:0; left:0;
+    width:260px;
+    background:#fdfaf3; padding:10px 10px 24px; border-radius:4px;
+    box-shadow:0 8px 16px rgba(0,0,0,0.35);
+    transition:box-shadow .2s ease;
+    will-change:transform, opacity;
+  }
+  .polaroid.top-card{cursor:pointer;}
+  .polaroid img{width:100%; height:210px; object-fit:cover; display:block; border-radius:1px; pointer-events:none;}
+  .polaroid.img-missing .missing-note{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; text-align:center;
+    width:100%; height:210px; background:#eee3d0; color:#a98a63;
+    font-family:'Inter'; font-size:0.75rem; border-radius:1px; padding:10px;
+  }
+  .missing-note{display:none;}
+  .polaroid.img-missing .missing-note{display:flex;}
+  .polaroid .cap{
+    text-align:center; font-family:'Caveat', cursive; font-size:1rem; color:var(--ink-soft); margin-top:8px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  .stack-counter{
+    font-family:'Press Start 2P', monospace; font-size:10px; color:var(--paper);
+    background:rgba(0,0,0,0.35); padding:6px 12px; border-radius:20px;
+  }
+  .tap-badge{
+    position:absolute; top:6px; right:6px;
+    font-family:'Press Start 2P', monospace; font-size:7px; color:#3a2417;
+    background:var(--pixel-yellow); padding:4px 6px; border-radius:3px;
+    border:2px solid #1a0f24; box-shadow:2px 2px 0 #1a0f24;
+  }
+
+  @media (max-width:360px){
+    .collage-grid{width:220px; height:280px;}
+    .polaroid{width:220px;}
+    .polaroid img{height:175px;}
+    .polaroid.img-missing .missing-note{height:175px;}
+  }
+
+  /* ---------- MOBILE OPTIMIZED JUKEBOX TRACKLIST ---------- */
+  .jukebox{
+    background:linear-gradient(160deg, #2c1a3a, #1a0f24);
+    border:3px solid #0e0712;
+    border-radius:10px;
+    padding:16px;
+    box-shadow:0 12px 0 rgba(0,0,0,0.3), 0 16px 25px rgba(0,0,0,0.45);
+  }
+  .now-playing{
+    display:flex; align-items:center; gap:12px; padding:12px;
+    background:rgba(255,255,255,0.04); border:2px solid rgba(255,179,122,0.25);
+    border-radius:8px; margin-bottom:14px;
+  }
+  .equalizer{display:flex; gap:2.5px; align-items:flex-end; height:18px; flex-shrink:0;}
+  .equalizer span{width:3.5px; background:var(--pixel-green); animation:eq 0.9s ease-in-out infinite;}
+  .equalizer span:nth-child(1){height:40%; animation-delay:0s;}
+  .equalizer span:nth-child(2){height:80%; animation-delay:.15s;}
+  .equalizer span:nth-child(3){height:55%; animation-delay:.3s;}
+  .equalizer span:nth-child(4){height:90%; animation-delay:.45s;}
+  @keyframes eq{0%,100%{transform:scaleY(0.4);}50%{transform:scaleY(1);}}
+  .now-playing.paused .equalizer span{animation-play-state:paused;}
+  
+  .np-text{flex:1; color:var(--paper); font-family:'Inter'; min-width:0;}
+  .np-text .np-title{font-weight:700; font-size:0.88rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .np-text .np-artist{font-size:0.75rem; color:#c9b3da; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .np-status{font-family:'Press Start 2P'; font-size:7px; color:var(--pixel-yellow); white-space:nowrap; flex-shrink:0;}
+
+  .track-list{display:flex; flex-direction:column; gap:8px;}
+  .track{
+    display:flex; align-items:center; gap:10px;
+    padding:10px 12px; border-radius:8px;
+    background:rgba(255,255,255,0.03);
+    border:2px solid rgba(255,255,255,0.06);
+    cursor:pointer;
+    transition: background .2s ease;
+  }
+  .track:hover{background:rgba(255,179,122,0.08);}
+  .track.playing{background:rgba(95,174,110,0.12); border-color:var(--pixel-green);}
+  .track-num{
+    font-family:'Press Start 2P'; font-size:9px; color:var(--coral); width:18px; flex-shrink:0; text-align:center;
+  }
+  .track-icon{width:24px; height:24px; image-rendering:pixelated; flex-shrink:0;}
+  .track-info{flex:1; min-width:0;}
+  .track-info .t-name{color:var(--paper); font-weight:600; font-size:0.85rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .track-info .t-artist{color:#b39bc4; font-size:0.72rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  
+  /* Buttons tailored for touch space guidelines */
+  .track-play{
+    font-family:'Press Start 2P'; font-size:8px; color:var(--paper);
+    background:var(--pixel-green); border:2px solid #1a0f24; border-radius:4px;
+    padding:8px 8px; cursor:pointer; flex-shrink:0;
+    box-shadow:2px 2px 0 #1a0f24;
+    min-height:34px;
+  }
+  .track.playing .track-play{background:var(--pink);}
+  .track-play:active{transform:translate(1px,1px); box-shadow:0 0 0 #1a0f24;}
+
+  .jukebox-note{
+    margin-top:14px; text-align:center; font-size:0.72rem; color:#9c84ad; font-family:'Inter'; line-height:1.4;
+  }
+
+  audio{display:none;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align:center; padding:30px 14px 70px; position:relative; z-index:2;
+    font-family:'Caveat', cursive; font-size:1.15rem; color:var(--paper);
+  }
+  footer .pixel-heart{width:16px; image-rendering:pixelated; vertical-align:middle; margin:0 4px;}
+
+  /* Sound Switch Fixed Control */
+  .sound-toggle{
+    position:fixed; bottom:16px; right:16px; z-index:200;
+    width:46px; height:46px; border-radius:50%;
+    background:var(--pixel-yellow); border:2px solid #1a0f24;
+    box-shadow:3px 3px 0 rgba(0,0,0,0.35);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:18px;
+    user-select:none;
+  }
+
+  ::selection{background:var(--pink); color:white;}
+</style>
+</head>
+<body>
+
+<div id="welcomeOverlay">
+  <div class="doodle-container">
+    <svg class="doodle-heart" viewBox="0 0 24 24" fill="none" stroke="#ef5d7c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+    </svg>
+    <h1 class="doodle-title">For You, My Love</h1>
+    <p class="doodle-sub">Open up the note...</p>
+    <button id="enterBtn" class="doodle-btn">Enter Site ✨</button>
+  </div>
+</div>
+
+<div class="decor" style="top:90px; left:4%;">
+  <svg class="kite" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="30,4 56,30 30,56 4,30" fill="#7ec8e3"/>
+    <polygon points="30,4 30,30 4,30" fill="#a8d8ec"/>
+    <polygon points="30,30 56,30 30,56" fill="#5fa8c9"/>
+  </svg>
+</div>
+<div class="decor" style="top:50px; right:6%;">
+  <svg class="balloons" viewBox="0 0 90 110" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="20" cy="22" rx="14" ry="17" fill="#ef5d7c"/>
+    <ellipse cx="45" cy="14" rx="14" ry="17" fill="#ffd166"/>
+    <ellipse cx="68" cy="24" rx="14" ry="17" fill="#b58df1"/>
+    <line x1="20" y1="38" x2="45" y2="80" stroke="#7a5c66" stroke-width="1"/>
+    <line x1="45" y1="30" x2="45" y2="80" stroke="#7a5c66" stroke-width="1"/>
+    <line x1="68" y1="40" x2="45" y2="80" stroke="#7a5c66" stroke-width="1"/>
+  </svg>
+</div>
+
+<nav>
+  <a href="#hero" class="nav-link">HOME</a>
+  <a href="#letter" class="nav-link">THE LETTER</a>
+  <a href="#songs" class="nav-link">SONGS</a>
+  <a href="#collage" class="nav-link">PHOTOS</a>
+</nav>
+
+<header class="hero" id="hero">
+  <p class="eyebrow">MEMORIES · STATION 02</p>
+  <h1>HELLOOO! MY PREETTYYY BABYYY, HOW ARE YOU?</h1>
+  <p class="sub">I really hope you're doing well baby ko. may ginawa nanaman akong ka pekpekan NYAHAHAHAHAH</p>
+
+  <div class="train-strip">
+    <canvas id="trainCanvas" width="900" height="260"></canvas>
+  </div>
+
+  <div class="cta-row">
+    <a href="#letter" class="btn btn-primary">READ THE LETTER</a>
+    <a href="#songs" class="btn btn-ghost">PLAY OUR SONGS</a>
+  </div>
+</header>
+
+<div class="track-divider">
+  <svg viewBox="0 0 200 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="200" height="20" fill="none"/>
+    <g fill="#1a0f24">
+      <rect x="0" y="9" width="200" height="3"/>
+      <rect x="2" y="4" width="6" height="13"/><rect x="16" y="4" width="6" height="13"/><rect x="30" y="4" width="6" height="13"/><rect x="44" y="4" width="6" height="13"/><rect x="58" y="4" width="6" height="13"/><rect x="72" y="4" width="6" height="13"/><rect x="86" y="4" width="6" height="13"/><rect x="100" y="4" width="6" height="13"/><rect x="114" y="4" width="6" height="13"/><rect x="128" y="4" width="6" height="13"/><rect x="142" y="4" width="6" height="13"/><rect x="156" y="4" width="6" height="13"/><rect x="170" y="4" width="6" height="13"/><rect x="184" y="4" width="6" height="13"/>
+    </g>
+  </svg>
+</div>
+
+<section id="letter">
+  <div class="section-inner">
+    <div class="section-head">
+      <p class="eyebrow">FROM ME, TO YOU</p>
+      <h2>Dear My Pretty Little Baby</h2>
+    </div>
+    <div class="letter-wrap">
+      <div class="letter">
+        <svg class="letter-pin" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><rect width="16" height="16" fill="#ef5d7c"/><rect x="4" y="4" width="8" height="8" fill="#c43e5c"/></svg>
+        <div class="date">JUNE 25, 2026</div>
+        <p class="salutation">Good morning, my pretty and cute little baby. ❤️</p>
+        <p>I hope you slept well and that today brings you happiness, peace, and lots of reasons to smile. As you start your day, please remember to always be gentle with yourself. You do so much, and sometimes winiwish ko na sana makita mo sarili mo the way i look at you kind, precious, strong, and sosososo prettyy sosos mucchh.</p>
+        <p>I want you to know that I am always proud of you, no matter what. I'm proud of your efforts, your growth, and the amazing person you are becoming every single day. Even on the days when you feel like you're not doing enough, please remember that I will always believe in you.</p>
+        <p>Thank you for coming into my life. You brought so much warmth, love, and happiness into my world, and I am so grateful for you. You make my days brighter just by being you.</p>
+        <p>Ilovveeeyyouusosososomuch, baby. More than words can ever fully explain. Take care of yourself today, stay safe, and don't forget that someone is always thinking about you and cheering for you from afar.  an layooo mo kasi babyy☹️☹️</p>
+        <p>Have a wonderful day, my babyyy hihihi. 🫶💕</p>
+        <div class="sign-block">
+          <div class="with-love">With love,</div>
+          <div class="signature">Your Rhandill</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="track-divider" style="opacity:0.7;">
+  <svg viewBox="0 0 200 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#1a0f24">
+      <rect x="0" y="9" width="200" height="3"/>
+      <rect x="2" y="4" width="6" height="13"/><rect x="16" y="4" width="6" height="13"/><rect x="30" y="4" width="6" height="13"/><rect x="44" y="4" width="6" height="13"/><rect x="58" y="4" width="6" height="13"/><rect x="72" y="4" width="6" height="13"/><rect x="86" y="4" width="6" height="13"/><rect x="100" y="4" width="6" height="13"/><rect x="114" y="4" width="6" height="13"/><rect x="128" y="4" width="6" height="13"/><rect x="142" y="4" width="6" height="13"/><rect x="156" y="4" width="6" height="13"/><rect x="170" y="4" width="6" height="13"/><rect x="184" y="4" width="6" height="13"/>
+    </g>
+  </svg>
+</div>
+
+<section id="songs">
+  <div class="section-inner">
+    <div class="section-head">
+      <p class="eyebrow">A PLAYLIST FOR YOU</p>
+      <h2>Songs that Remind Me of You</h2>
+    </div>
+
+    <div class="jukebox">
+      <div class="now-playing paused" id="nowPlaying">
+        <div class="equalizer"><span></span><span></span><span></span><span></span></div>
+        <div class="np-text">
+          <div class="np-title" id="npTitle">Nothing playing yet</div>
+          <div class="np-artist" id="npArtist">Pick a track below</div>
+        </div>
+        <div class="np-status" id="npStatus">PAUSED</div>
+      </div>
+
+      <div class="track-list" id="trackList">
+        </div>
+
+      <div class="jukebox-note">
+        Full songs live on Spotify/YouTube — clicking ▶ opens the real track there<br>
+        so the right artists get the credit.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="track-divider" style="opacity:0.7;">
+  <svg viewBox="0 0 200 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#1a0f24">
+      <rect x="0" y="9" width="200" height="3"/>
+      <rect x="2" y="4" width="6" height="13"/><rect x="16" y="4" width="6" height="13"/><rect x="30" y="4" width="6" height="13"/><rect x="44" y="4" width="6" height="13"/><rect x="58" y="4" width="6" height="13"/><rect x="72" y="4" width="6" height="13"/><rect x="86" y="4" width="6" height="13"/><rect x="100" y="4" width="6" height="13"/><rect x="114" y="4" width="6" height="13"/><rect x="128" y="4" width="6" height="13"/><rect x="142" y="4" width="6" height="13"/><rect x="156" y="4" width="6" height="13"/><rect x="170" y="4" width="6" height="13"/><rect x="184" y="4" width="6" height="13"/>
+    </g>
+  </svg>
+</div>
+
+<section id="collage">
+  <div class="section-inner">
+    <div class="section-head">
+      <p class="eyebrow">MEMORIES</p>
+      <h2>Photo Collage</h2>
+      <p style="font-family:'Inter'; color:#f0dcc8; font-size:0.8rem; margin-top:6px;">Tap the photo to send it to the back of the pile and see the next one.</p>
+    </div>
+    <div class="stack-wrap">
+      <div class="collage-grid" id="collageGrid"></div>
+      <div class="stack-counter" id="stackCounter">1 / 8</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  forever yours <img class="pixel-heart" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='none'/><g fill='%23ef5d7c'><rect x='1' y='3' width='3' height='3'/><rect x='4' y='2' width='3' height='2'/><rect x='9' y='2' width='3' height='2'/><rect x='12' y='3' width='3' height='3'/><rect x='1' y='6' width='14' height='2'/><rect x='2' y='8' width='12' height='2'/><rect x='3' y='10' width='10' height='2'/><rect x='5' y='12' width='6' height='2'/><rect x='7' y='14' width='2' height='1'/></g></svg>" alt="heart"> randil. hihihi babyy sorryy po eto lang muna nagawa ko for now,<br> dadag-dagan ko yan soon promisee babyyy iloveeeyouusosososmuuucchhh
+</footer>
+
+<audio id="bgLoopAudio" src="Johnoy Danao - Ikaw At Ako (Lyrics).mp3" loop></audio>
+
+<div class="sound-toggle" id="soundToggle" title="music tip">🎵</div>
+
+<script src="train.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
